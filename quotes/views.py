@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 # Si el dia que el usuario envia coincide con alguna clave del diccionario
 # devolveremos la palabra asociada a esa clave o dia
@@ -17,7 +17,18 @@ days_of_week={
 
 # si el day se manda como integer se acciona esta vista
 def days_week_with_number(request, day):
-    return HttpResponse(day)
+    # Forma del profesor
+    days=list(days_of_week.keys())
+    if day > len(days): # si pasa numero mayor a la cantidad de dias
+        return HttpResponseNotFound('El dia no existe')        
+    redirect_day=days[day-1] # con 0 en day accede a sunday 0-1=-1
+    return HttpResponseRedirect(f'/quotes/{redirect_day}')
+    
+    # Mi forma de reenviarlos a la ruta del dia correspondiente segun el numero de dia que pasen
+    days=dict(enumerate(days_of_week.keys(), 1))
+    print(days)
+    # Respondemos con una redireccion a otra ruta
+    return HttpResponseRedirect(f'/quotes/{days.get(day, 'desconocido')}')
 
 
 # Si el dia se manda como texto acciona esta vista
@@ -34,4 +45,4 @@ def days_week(request, day):
         return HttpResponse(quote_text)
     except:
         return HttpResponseNotFound("No hay frase para ese dia")
-    
+
