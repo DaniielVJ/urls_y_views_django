@@ -7,7 +7,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Se pasa como argumento la ruta al modulo que contiene las urls que queremos incluir
-    path('quotes/', include('quotes.urls')) # Para usar o acceder a las rutas del modulo que incluimos, se debe hacer a traves 
+    path('messages/', include('quotes.urls')) # Para usar o acceder a las rutas del modulo que incluimos, se debe hacer a traves 
     # de la ruta que definimos como primer argumento en la funcion path
     
 ]

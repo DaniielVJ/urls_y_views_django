@@ -9,3 +9,5 @@
     - HttpResponse: 200 Success/Ok
     - HttpResponseRedirect: 302 Found
     - HttpResponseNotFound: 404 Not Found
+- **Named Urls:** Permite dar un nombre a las urls o paths para referenciarlos.
+- **Funcion reverse:** Es una funcion que permite construir el path o ruta completa proporcionandole el nombre de la ruta o url de la cual queremos que obtenga su ruta completa, permitiendo que el codigo sea mas dinamico ya que no dependemos de la ruta en duro si no que la genera completa en base al nombre. permitiendo si en un futuro se modifica la ruta principal para acceder a la ruta, este genere la ruta completa sin importar el cambio.

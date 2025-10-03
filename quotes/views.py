@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 
 # Si el dia que el usuario envia coincide con alguna clave del diccionario
 # devolveremos la palabra asociada a esa clave o dia
@@ -22,7 +23,11 @@ def days_week_with_number(request, day):
     if day > len(days): # si pasa numero mayor a la cantidad de dias
         return HttpResponseNotFound('El dia no existe')        
     redirect_day=days[day-1] # con 0 en day accede a sunday 0-1=-1
-    return HttpResponseRedirect(f'/quotes/{redirect_day}')
+    
+    # reverse, regresa la url completa del path que especifiquemos su nombre, desde la url del proyecto
+    # en args se pasa como argumento el valor que le daremos si el path es dinamico.
+    redirect_path = reverse('day-quote', args=[redirect_day])
+    return HttpResponseRedirect(redirect_path)
     
     # Mi forma de reenviarlos a la ruta del dia correspondiente segun el numero de dia que pasen
     days=dict(enumerate(days_of_week.keys(), 1))
@@ -43,6 +48,6 @@ def days_week(request, day):
     try:
         quote_text=days_of_week[day]
         return HttpResponse(quote_text)
-    except:
+    except KeyError:
         return HttpResponseNotFound("No hay frase para ese dia")
 
