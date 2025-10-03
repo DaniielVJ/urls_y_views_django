@@ -1,6 +1,4 @@
 ## Proyecto para aprender Urls y Views en Django
-- UwU
-
 
 - **Path Dinamico:** Consiste en responder solicitudes a urls que no mantengan un valor fijo o estatico
 - **Convertidores:** Permite responder segun el tipo de dato que se envie en la url y convertirlo e igualmente recibirlo en el parametro de la vista que se accione.

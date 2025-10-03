@@ -15,13 +15,25 @@ days_of_week={
 }
 
 
+# Generamos HTML desde string y lo enviamos al cliente
+def index(request):
+    list_items = ""
+    days=list(days_of_week.keys())
+    for day in days:
+        # permite obtener el path completo a traves del name
+        redirect_path=reverse('day-quote', args=[day])
+        list_items+=f"<li><a href='{redirect_path}'>{day.capitalize()}</a></li>"
+    
+    response_html = "<ul>" + list_items + "</ul>"
+    return HttpResponse(response_html)
+
 
 # si el day se manda como integer se acciona esta vista
 def days_week_with_number(request, day):
     # Forma del profesor
     days=list(days_of_week.keys())
     if day > len(days): # si pasa numero mayor a la cantidad de dias
-        return HttpResponseNotFound('El dia no existe')        
+        return HttpResponseNotFound('<h1>El dia no existe</h1>')        
     redirect_day=days[day-1] # con 0 en day accede a sunday 0-1=-1
     
     # reverse, regresa la url completa del path que especifiquemos su nombre, desde la url del proyecto
